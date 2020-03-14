@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<style type="text/css">
+		body, html, .container-fluid { 
+  			height: 100%;
+		}
+		#inputNum {
+			width: 95%;
+			border: none;
+			background-color: gray;
+			text-align: right;
+			font-family: "Agency FB";
+			font-size: 60px;
+		}
+
+		#btnC {
+			height: 100%;
+		}
+
+		button {
+			width: 80%;
+			height: 120%;
+		}
+	</style>
+	<script type="text/javascript">
+		var first = 0;
+		var second = 0;
+		var operation = "";
+		var pontoF = 0; 
+		function calcular(x){
+			var y = 0;
+			console.log(pontoF);
+			if(second != 0){
+				document.getElementById("inputNum").value = 0;
+			}
+			if(document.getElementById("inputNum").value > 9999999){
+				return;
+			}
+			if(document.getElementById("inputNum").value == "0" || document.getElementById("inputNum").value == "divisão por 0"){
+				y = 1;
+			}
+			if(x != "=" && x != "/" && x != "*" && x != "-" && x != "+"){
+				if(y == 0){
+					if(x == "0"){
+						return;
+					}else{
+						if(x == "." && pontoF != 0){
+							return;
+						}else{
+							if(x == "."){
+								pontoF = 1;
+							}
+							document.getElementById("inputNum").value = document.getElementById("inputNum").value + x;
+						}
+					}
+				}else{
+					document.getElementById("inputNum").value = x;
+				}
+			}else if(x == "+"){
+				first = parseFloat(document.getElementById("inputNum").value);
+				operation = "+";
+				document.getElementById("inputNum").value = 0;
+				pontoF = 0;
+			}else if(x == "-"){
+				first = parseFloat(document.getElementById("inputNum").value);
+				operation = "-";
+				document.getElementById("inputNum").value = 0;
+				pontoF = 0;
+			}else if(x == "*"){
+				first = parseFloat(document.getElementById("inputNum").value);
+				operation = "*";
+				document.getElementById("inputNum").value = 0;
+				pontoF = 0;
+			}else if(x == "/"){
+				first = parseFloat(document.getElementById("inputNum").value);
+				operation = "/";
+				document.getElementById("inputNum").value = 0;
+				pontoF = 0;
+			}else if(x == "="){
+				pontoF = 0;
+				second = parseFloat(document.getElementById("inputNum").value);
+				if(operation == "+"){
+					document.getElementById("inputNum").value = first + second;
+					pontoF = 0;
+				}else if(operation == "-"){
+					document.getElementById("inputNum").value = first - second;
+					pontoF = 0;
+				}else if(operation == "*"){
+					document.getElementById("inputNum").value = first * second;
+					pontoF = 0;
+				}else{
+					if(second == 0){
+						document.getElementById("inputNum").value = "divisão por 0";
+						pontoF = 0;
+					}else{
+						document.getElementById("inputNum").value = first / second;
+						pontoF = 0;
+					}
+				}
+			}else{
+				document.getElementById("inputNum").value = 0;
+				pontoF = 0;
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<div class="container-fluid" style="background-color: gray">
+		<div class="row pb-3 justify-content-md-center">
+			<div class="col-2">
+				<h1><span class="label label-default">Calculadora</span></h1>
+			</div>
+		</div>
+		<div class="row pb-3 justify-content-md-center">
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('C')" id="btnC">C</button>
+			</div>
+			<div class="col-3">
+				<input type="text" readonly class="form-control" value="0" id="inputNum">
+    		</div>
+		</div>
+		<div class="row pb-3 justify-content-center">
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('9');">9</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('8');">8</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('7');">7</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('+')">+</button>
+			</div>
+		</div>
+		<div class="row pb-3 justify-content-md-center">
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('6');">6</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('5');">5</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('4');">4</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('-')">-</button>
+			</div>
+		</div>
+		<div class="row pb-3 justify-content-md-center">
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('3');">3</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('2');">2</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('1');">1</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('*')">*</button>
+			</div>
+		</div>
+		<div class="row pb-3 justify-content-md-center">
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('0')">0</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('.')">.</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('=')">=</button>
+			</div>
+			<div class="col-1">
+				<button class="btn btn-dark" onclick="calcular('/')">/</button>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
